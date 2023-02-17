@@ -1,6 +1,6 @@
 class Category:
 
-    def __init__(self, name, code, no_of_products,parent=None):
+    def __init__(self, name, code, no_of_products, parent=None):
         self.name = name
         self.code = code
         self.no_of_products = no_of_products
@@ -10,16 +10,16 @@ class Category:
 
 
     def show_category(self):
-        print("name of category",self.name, self.code, self.parent,self.products)
+        print("name of category", self.name, self.code, self.parent, self.products)
 
 
     def generate_display_name(self):
-        i = 0
-        while i <= self.parent:
-            if self.parent is None:
-                print(self.name)
-            else:
-                print(str(self.parent.name) + " > " + str(self.name))
+        while self.parent is None:
+            print(self.name)
+            break
+        else:
+            print(str(self.parent.name) + " > " + str(self.name))
+
 
 
     @classmethod
@@ -30,7 +30,7 @@ class Category:
                     category_list[i], category_list[j] = category_list[j], category_list[i]
 
         for i in category_list:
-            print("category name:",i.name)
+            print("category name:", i.name)
             for j in i.products:
                 print("product:", j.name, "|", j.code, "|", j.price, "|", j.category.name)
 
@@ -50,7 +50,7 @@ class Product:
 
 
 # parent category
-c1 = Category("vehicle",101, 0)
+c1 = Category("vehicle", 101, 0)
 
 # child category
 c2 = Category("car", 102, 0, c1)
