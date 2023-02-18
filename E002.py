@@ -1,16 +1,16 @@
 class Category:
 
-    def __init__(self, name, code, no_of_products, parent=None):
+    def __init__(self, name, code, parent=None):
         self.name = name
         self.code = code
-        self.no_of_products = no_of_products
+        self.no_of_products = 0
         self.parent = parent
         self.display_name = self.generate_display_name()
         self.products = []
 
 
     def show_category(self):
-        print("name of category", self.name, self.code, self.parent, self.products)
+        print("name of category:", self.name, self.no_of_products)
 
 
     def generate_display_name(self):
@@ -31,9 +31,9 @@ class Category:
 
         for i in category_list:
             print("category name:", i.name)
-            for j in i.products:
-                print("product:", j.name, "|", j.code, "|", j.price, "|", j.category.name)
-
+            for j in product_list:
+                if (i==j.category):
+                    print("product:", "Name:", j.name, "|", "Code:", j.code, "|", "Price:", j.price, "|", "Category:", j.category.name)
 
 
 class Product:
@@ -42,6 +42,7 @@ class Product:
         self.name = name
         self.code = code
         self.category = category
+        category.no_of_products = category.no_of_products + 1
         self.price = price
 
 
@@ -50,15 +51,15 @@ class Product:
 
 
 # parent category
-c1 = Category("vehicle", 101, 0)
+c1 = Category("vehicle", 101)
 
 # child category
-c2 = Category("car", 102, 0, c1)
-c3 = Category("bike", 103, 0, c1)
+c2 = Category("car", 102, c1)
+c3 = Category("bike", 103, c1)
 
 # sub-child category
-c4 = Category("diesel", 104, 0, c2)
-c5 = Category("petrol", 105, 0, c3)
+c4 = Category("diesel", 104, c2)
+c5 = Category("petrol", 105, c3)
 
 
 p1 = Product("bus", 1001, c1, 500000)
@@ -78,12 +79,8 @@ p14 = Product("Indian oil", 1014, c5, 200)
 p15 = Product("Reliance", 1015, c5, 180)
 
 category_list = [c1, c2, c3, c4, c5]
+product_list = [p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15]
 
-c1.products = [p1, p2, p3]
-c2.products = [p4, p5, p6]
-c3.products = [p7, p8, p9]
-c4.products = [p10, p11, p12]
-c5.products = [p13, p14, p15]
 
 print("***category information order by name with its products......***")
 
