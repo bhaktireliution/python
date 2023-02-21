@@ -19,9 +19,9 @@ class Category:
 
     def generate_display_name(self):
         if self.parent is None:
-            print(self.name)
+            return (self.name)
         else:
-            print(str(self.parent.generate_display_name()) + " > " + str(self.name))
+            return (str(self.parent.display_name) + " > " + str(self.name))
 
 
     @classmethod
@@ -29,7 +29,9 @@ class Category:
         for i in category_list:
             print("Name of category:", i.name)
             print("Code of category:", i.code)
-
+            print("Display name:", i.display_name)
+            for j in i.products:
+                print("Products:", j)
 
 
     @classmethod
@@ -40,8 +42,9 @@ class Category:
                     category_list[i], category_list[j] = category_list[j], category_list[i]
 
         for i in category_list:
-            print(i.show_category())
-
+            print("Name of category:", i.name)
+            for j in i.products:
+                print(j)
 
 
 class Product:
@@ -54,11 +57,8 @@ class Product:
         category.products.append(self)
         self.price = price
 
-
-
-
     def __repr__(self):
-        return (self.name + " | " + str(self.code) + " | " + self.category.name + " | " + str(self.price))
+        return ("Name:" + self.name + " | " + "Code:" + str(self.code) + " | " + "Category:" + self.category.name + " | " + "Price:" + str(self.price))
 
 
 
@@ -94,7 +94,10 @@ p15 = Product("Reliance", 1015, c5, 180)
 category_list = [c1, c2, c3, c4, c5]
 
 
+print("***category and its products details......***")
+
 Category.category_info()
+
 
 print("***category information order by name with its products......***")
 
