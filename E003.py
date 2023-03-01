@@ -28,35 +28,22 @@ class Movement:
         self.to_location = to_location
         self.product = product
         self.quantity = quantity
-        self.xyz()
-        # self.stock = stock
-        # self.stock_location()
-        # product.total_stock.update({str(self.from_location.name): str(self.stock)})
-        # product.stock_at_locations.update({str(self.from_location.name): str(self.stock)})
+        self.change_stock()
         product.stock_at_locations.update({str(self.to_location.name): str(self.quantity)})
-        product.stock_at_locations.update({str(self.from_location.name): str(self.xyz())})
-
 
     def show_movement(self):
         print(str(self.quantity) + " " + str(self.product.name) + " from " + str(self.from_location.name) + " to " + str(self.to_location.name))
 
-    def xyz(self):
+    def change_stock(self):
         for i, j in self.product.stock_at_locations.items():
-            try:
-                if self.quantity <= j:
-                    return j - self.quantity
-                    # return self.product.stock_at_locations.update({str(self.from_location.name): str(j - self.quantity)})
-            except:
-                return "Sorry, no product available"
-                # self.product.stock_at_locations.update({str(self.from_location.name): str(j - self.quantity)})
-        # for i in movement_list:
-        #     print(i.xyz())
-
-
-
-    # def stock_location(self):
-    #     x = int(self.product.stock_at_locations.values()) - int(self.quantity)
-    #     return x
+            if self.quantity > 0 and self.quantity <= j:
+                self.product.stock_at_locations[i] = j - self.quantity
+            else:
+                return "test"
+            # if self.quantity <= j:
+            #     return x
+            # else:
+            #     print("Sorry, no product available")
 
     @staticmethod
     def movement_by_product(product):
@@ -80,11 +67,6 @@ class Product:
     def dictionary(cls):
         for i in product_list:
             i.show_products()
-
-    # @classmethod
-    # def dic_value(cls):
-    #     for i in product_list:
-    #         print(i.stock_at_locations.values())
 
 
 rajkot = Location("Rajkot", 101)
@@ -117,6 +99,10 @@ movement_list = [m1, m2, m3, m4, m5]
 print("*** Movements of product.....***")
 
 Movement.movement_by_product(bag)
+Movement.movement_by_product(shoe)
+Movement.movement_by_product(jeans)
+Movement.movement_by_product(tshirt)
+Movement.movement_by_product(watch)
 
 
 print(">>>")
@@ -131,9 +117,4 @@ print(">>>")
 print("*** Product list by location.....***")
 
 Location.sort_name()
-
-
-# Product.dic_value()
-
-
 
